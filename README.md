@@ -1,5 +1,9 @@
 # Filament Sidebar Resize
 
+[![Latest Version](https://img.shields.io/packagist/v/martin6363/filament-sidebar-resize)](https://packagist.org/packages/martin6363/filament-sidebar-resize)
+[![Total Downloads](https://img.shields.io/packagist/dt/martin6363/filament-sidebar-resize)](https://packagist.org/packages/martin6363/filament-sidebar-resize)
+[![License](https://img.shields.io/packagist/l/martin6363/filament-sidebar-resize)](LICENSE.md)
+
 Drag-to-resize sidebar for Filament v5 admin panels. Admin users can adjust the navigation sidebar width by dragging a handle on its edge. The chosen width is persisted in the browser via `localStorage` and restored on every visit and Livewire navigation.
 
 No Vite, NPM, or Tailwind build step is required — the package injects a single Blade view with minimal inline CSS and vanilla JavaScript through Filament's render hook system.
