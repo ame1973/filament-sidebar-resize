@@ -18,6 +18,13 @@
         touch-action: none;
     }
 
+    .fi-sidebar-resize-handle.fi-sidebar-resize-handle-central {
+        top: 50%;
+        bottom: auto;
+        height: 64px;
+        transform: translateY(-50%);
+    }
+
     .fi-sidebar-resize-handle::before {
         content: '';
         position: absolute;
@@ -133,6 +140,7 @@
         const config = {
             minWidth: @js($minWidth),
             maxWidth: @js($maxWidth),
+            centralGripOnly: @js($centralGripOnly),
             storageKey: @js($storageKey),
         };
 
@@ -285,6 +293,11 @@
 
             const handle = document.createElement('div');
             handle.className = 'fi-sidebar-resize-handle';
+
+            if (config.centralGripOnly) {
+                handle.classList.add('fi-sidebar-resize-handle-central');
+            }
+
             handle.setAttribute('role', 'separator');
             handle.setAttribute('aria-orientation', 'vertical');
             handle.setAttribute('aria-label', 'Resize sidebar');

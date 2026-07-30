@@ -15,10 +15,13 @@ class SidebarResizePlugin implements Plugin
 
     protected int $maxWidth;
 
+    protected bool $centralGripOnly;
+
     public function __construct()
     {
         $this->minWidth = (int) config('sidebar-resize.min_width', 200);
         $this->maxWidth = (int) config('sidebar-resize.max_width', 450);
+        $this->centralGripOnly = (bool) config('sidebar-resize.central_grip_only', true);
     }
 
     public static function make(): static
@@ -45,6 +48,13 @@ class SidebarResizePlugin implements Plugin
         return $this;
     }
 
+    public function centralGripOnly(bool $enabled = true): static
+    {
+        $this->centralGripOnly = $enabled;
+
+        return $this;
+    }
+
     public function getMinWidth(): int
     {
         return $this->minWidth;
@@ -55,6 +65,11 @@ class SidebarResizePlugin implements Plugin
         return $this->maxWidth;
     }
 
+    public function isCentralGripOnly(): bool
+    {
+        return $this->centralGripOnly;
+    }
+
     public function register(Panel $panel): void
     {
         $panel->renderHook(
@@ -62,6 +77,7 @@ class SidebarResizePlugin implements Plugin
             fn (): View => view('sidebar-resize::resize-script', [
                 'minWidth' => $this->getMinWidth(),
                 'maxWidth' => $this->getMaxWidth(),
+                'centralGripOnly' => $this->isCentralGripOnly(),
                 'storageKey' => $this->getStorageKey($panel),
             ]),
         );

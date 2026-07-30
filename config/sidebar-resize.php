@@ -24,4 +24,16 @@ return [
 
     'max_width' => 450,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Central Grip Only
+    |--------------------------------------------------------------------------
+    |
+    | Restrict sidebar resizing to the visible grip in the center. Disable this
+    | to keep the full sidebar edge draggable.
+    |
+    */
+
+    'central_grip_only' => true,
+
 ];
