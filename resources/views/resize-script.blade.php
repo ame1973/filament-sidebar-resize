@@ -54,12 +54,12 @@
             4px 4px,
             4px 4px;
         background-position:
-            calc(50% - 2px) 16px,
-            calc(50% + 2px) 16px,
-            calc(50% - 2px) 22px,
-            calc(50% + 2px) 22px,
-            calc(50% - 2px) 28px,
-            calc(50% + 2px) 28px;
+            calc(50% - 2px) 14px,
+            calc(50% + 2px) 14px,
+            calc(50% - 2px) 20px,
+            calc(50% + 2px) 20px,
+            calc(50% - 2px) 26px,
+            calc(50% + 2px) 26px;
         background-repeat: no-repeat;
         transition:
             border-color 150ms ease,
