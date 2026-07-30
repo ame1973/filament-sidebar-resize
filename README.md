@@ -4,7 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/martin6363/filament-sidebar-resize)](https://packagist.org/packages/martin6363/filament-sidebar-resize)
 [![License](https://img.shields.io/packagist/l/martin6363/filament-sidebar-resize)](LICENSE.md)
 
-Drag-to-resize sidebar for Filament v5 admin panels. Admin users can adjust the navigation sidebar width by dragging a handle on its edge. The chosen width is persisted in the browser via `localStorage` and restored on every visit and Livewire navigation.
+Drag-to-resize sidebar for Filament v5 admin panels. Admin users can adjust the navigation sidebar width by dragging the centered grip on its edge. The full-height divider remains visible without blocking the sidebar scrollbar. The chosen width is persisted in the browser via `localStorage` and restored on every visit and Livewire navigation.
 
 No Vite, NPM, or Tailwind build step is required — the package injects a single Blade view with minimal inline CSS and vanilla JavaScript through Filament's render hook system.
 
@@ -28,7 +28,8 @@ No Vite, NPM, or Tailwind build step is required — the package injects a singl
 
 ## Features
 
-- **Drag-to-resize** — a visible grip handle on the sidebar edge lets users resize with the mouse (`col-resize` cursor).
+- **Drag-to-resize** — a visible grip on the sidebar edge lets users resize with the mouse (`col-resize` cursor).
+- **Scrollbar-friendly divider** — the full-height divider remains visible while only the centered grip is draggable by default.
 - **Filament-native layout** — updates the `--sidebar-width` CSS variable and inline sidebar dimensions so `.fi-main` and the rest of the layout respond correctly.
 - **localStorage persistence** — each Filament panel stores its own width key (`martin6363-sidebar-resize:{panelId}`).
 - **Collapsible sidebar support** — works alongside `sidebarCollapsibleOnDesktop()`; inline width styles are cleared when the sidebar is collapsed and restored when expanded.
@@ -70,6 +71,7 @@ Published file: `config/sidebar-resize.php`
 return [
     'min_width' => 200,
     'max_width' => 450,
+    'central_grip_only' => true,
 ];
 ```
 
@@ -77,8 +79,9 @@ return [
 |-----|---------|
 | `min_width` | Narrowest sidebar width in pixels when dragging. Default: `200`. |
 | `max_width` | Widest sidebar width in pixels when dragging. Default: `450`. |
+| `central_grip_only` | Restrict dragging to the centered grip so the scrollbar remains accessible. Default: `true`. |
 
-These defaults apply globally. Override per panel with the fluent `minWidth()` and `maxWidth()` methods on the plugin instance.
+These defaults apply globally. Override them per panel with the plugin's fluent methods.
 
 ---
 
@@ -113,6 +116,15 @@ SidebarResizePlugin::make()
     ->maxWidth(480),
 ```
 
+### With a full-height resize hit area
+
+The centered grip is the only draggable area by default. Restore the legacy full-height sidebar edge per panel when needed:
+
+```php
+SidebarResizePlugin::make()
+    ->centralGripOnly(false),
+```
+
 ### With a collapsible desktop sidebar
 
 The plugin is designed to coexist with Filament's collapsible sidebar. No extra setup is required:
@@ -136,6 +148,7 @@ When the sidebar is collapsed, resize styles are removed so Filament can render 
 | `SidebarResizePlugin::make()` | Resolve the plugin singleton from the container. |
 | `minWidth(int $pixels)` | Set the minimum draggable sidebar width. Overrides `config('sidebar-resize.min_width')`. |
 | `maxWidth(int $pixels)` | Set the maximum draggable sidebar width. Overrides `config('sidebar-resize.max_width')`. |
+| `centralGripOnly(bool $enabled = true)` | Restrict dragging to the centered grip. Pass `false` to restore the full-height hit area. |
 
 ---
 
@@ -143,7 +156,8 @@ When the sidebar is collapsed, resize styles are removed so Filament can render 
 
 | Scenario | Behavior |
 |----------|----------|
-| Desktop (`≥ 1024px`) | Resize handle visible when the sidebar is open. |
+| Desktop (`≥ 1024px`) | Full-height divider visible; centered resize grip shown when the sidebar is open. |
+| `central_grip_only = false` | The full-height sidebar edge becomes draggable, matching the original behavior. |
 | Mobile (`< 1024px`) | Handle hidden; Filament uses the overlay sidebar. |
 | `sidebarCollapsibleOnDesktop()` | Resize applies only when expanded; collapse/expand works normally. |
 | `sidebarFullyCollapsibleOnDesktop()` | Same inline-style clearing when the sidebar is closed. |
@@ -164,7 +178,7 @@ When the sidebar is collapsed, resize styles are removed so Filament can render 
 php artisan vendor:publish --tag=sidebar-resize-config
 ```
 
-Adjust `min_width` and `max_width` in the published config, or override limits per panel with `->minWidth()` and `->maxWidth()` on the plugin instance.
+Adjust `min_width`, `max_width`, and `central_grip_only` in the published config, or override them per panel with `->minWidth()`, `->maxWidth()`, and `->centralGripOnly()`.
 
 ---
 
