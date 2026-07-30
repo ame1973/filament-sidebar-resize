@@ -1,4 +1,12 @@
 <style>
+    .fi-main-sidebar {
+        border-inline-end: 1px solid rgb(209 213 219 / 0.9);
+    }
+
+    .dark .fi-main-sidebar {
+        border-inline-end-color: rgb(75 85 99 / 0.9);
+    }
+
     .fi-sidebar-resize-handle {
         position: absolute;
         top: 0;
@@ -53,19 +61,6 @@
             background-color 150ms ease;
     }
 
-    .fi-sidebar-resize-handle::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        inset-inline-end: 0;
-        width: 1px;
-        background-color: rgb(209 213 219 / 0.9);
-        box-shadow: 1px 0 0 rgb(229 231 235 / 0.6);
-        transition: background-color 150ms ease, box-shadow 150ms ease, width 150ms ease;
-        z-index: -1;
-    }
-
     .fi-sidebar-resize-handle:hover::before,
     .fi-sidebar-resize-handle:active::before {
         border-color: rgb(209 213 219);
@@ -73,13 +68,6 @@
             0 2px 6px rgb(0 0 0 / 0.1),
             0 0 0 1px rgb(245 158 11 / 0.15);
         transform: translate(50%, -50%) scale(1.04);
-    }
-
-    .fi-sidebar-resize-handle:hover::after,
-    .fi-sidebar-resize-handle:active::after {
-        width: 2px;
-        background-color: rgb(156 163 175);
-        box-shadow: 0 0 0 1px rgb(156 163 175 / 0.35);
     }
 
     .dark .fi-sidebar-resize-handle::before {
@@ -112,17 +100,6 @@
             0 0 0 1px rgb(251 191 36 / 0.2);
     }
 
-    .dark .fi-sidebar-resize-handle::after {
-        background-color: rgb(75 85 99 / 0.9);
-        box-shadow: 1px 0 0 rgb(55 65 81 / 0.8);
-    }
-
-    .dark .fi-sidebar-resize-handle:hover::after,
-    .dark .fi-sidebar-resize-handle:active::after {
-        background-color: rgb(107 114 128);
-        box-shadow: 0 0 0 1px rgb(107 114 128 / 0.45);
-    }
-
     body.fi-sidebar-resizing .fi-sidebar-resize-handle::before {
         border-color: rgb(245 158 11 / 0.65);
         box-shadow:
@@ -131,22 +108,11 @@
         transform: translate(50%, -50%) scale(1.06);
     }
 
-    body.fi-sidebar-resizing .fi-sidebar-resize-handle::after {
-        width: 2px;
-        background-color: rgb(245 158 11 / 0.85);
-        box-shadow: 0 0 0 1px rgb(245 158 11 / 0.4);
-    }
-
     .dark body.fi-sidebar-resizing .fi-sidebar-resize-handle::before {
         border-color: rgb(251 191 36 / 0.7);
         box-shadow:
             0 2px 10px rgb(251 191 36 / 0.2),
             0 0 0 2px rgb(251 191 36 / 0.18);
-    }
-
-    .dark body.fi-sidebar-resizing .fi-sidebar-resize-handle::after {
-        background-color: rgb(251 191 36 / 0.9);
-        box-shadow: 0 0 0 1px rgb(251 191 36 / 0.45);
     }
 
     body.fi-sidebar-resizing,
